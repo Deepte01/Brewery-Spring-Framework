@@ -4,12 +4,10 @@ import brewery.springframework.mssc_brewery.services.BeerService;
 import brewery.springframework.mssc_brewery.services.CustomerService;
 import brewery.springframework.mssc_brewery.web.model.BeerDto;
 import brewery.springframework.mssc_brewery.web.model.CustomerDto;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -25,5 +23,29 @@ public class CustomerController {
     @GetMapping({"/{custId}"})
     public ResponseEntity<CustomerDto> getBeer(@PathVariable("custId") UUID custId) {
         return  new ResponseEntity<>(customerService.getCustomerByID(custId), HttpStatus.OK);
+    }
+    // create a new beer
+    @PostMapping
+    public ResponseEntity handlePost(@RequestBody CustomerDto customerDto)
+    {
+        CustomerDto saveDto = customerService.saveNewBeer(customerDto);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("location", "/api/v1/beer/" + saveDto.getId().toString());
+        //send response 201
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping({"{/custId}"})
+    public ResponseEntity handleUpdate(@PathVariable("custId") UUID beerId,@RequestBody CustomerDto customerDto)
+    {
+        customerService.updateCustomer(beerId, customerDto);
+        return  new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping({"{/custId}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBeer(@PathVariable("custId") UUID custId)
+    {
+        customerService.deleteById(custId);
     }
 }
