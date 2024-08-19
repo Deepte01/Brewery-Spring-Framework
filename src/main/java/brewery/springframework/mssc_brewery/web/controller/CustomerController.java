@@ -26,7 +26,7 @@ public class CustomerController {
     }
     // create a new beer
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody CustomerDto customerDto)
+    public ResponseEntity handlePost(CustomerDto customerDto)
     {
         CustomerDto saveDto = customerService.saveNewBeer(customerDto);
         HttpHeaders headers = new HttpHeaders();
@@ -35,14 +35,14 @@ public class CustomerController {
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
-    @PutMapping({"{/custId}"})
-    public ResponseEntity handleUpdate(@PathVariable("custId") UUID beerId,@RequestBody CustomerDto customerDto)
+    @PutMapping({"/{custId}"})
+    public ResponseEntity handleUpdate(@PathVariable("custId") UUID custId, @RequestBody CustomerDto customerDto)
     {
-        customerService.updateCustomer(beerId, customerDto);
+        customerService.updateCustomer(custId, customerDto);
         return  new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping({"{/custId}"})
+    @DeleteMapping({"/{custId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBeer(@PathVariable("custId") UUID custId)
     {

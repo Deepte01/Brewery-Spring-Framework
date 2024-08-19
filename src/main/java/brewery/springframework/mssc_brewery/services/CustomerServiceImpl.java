@@ -20,12 +20,12 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDto saveNewBeer(CustomerDto customerDto) {
         return CustomerDto.builder()
                 .id(UUID.randomUUID())
-                .customerName(customerDto.getCustomerName())
+                .customerName("Customer name")
                 .build();
     }
 
     @Override
-    public void updateCustomer(UUID beerId, CustomerDto customerDto) {
+    public void updateCustomer(UUID custId, CustomerDto customerDto) {
        // add implementation later...
     }
 
