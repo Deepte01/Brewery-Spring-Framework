@@ -7,9 +7,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
+@Slf4j
 @Deprecated
 @RequestMapping("/api/v1/beer")
 @RestController
@@ -29,6 +31,7 @@ public class BeerController {
     // create a new beer
     @PostMapping
     public ResponseEntity<Object> handlePost(BeerDto beerDto) {
+        log.debug("adding log info");
         BeerDto saveDto = beerService.saveNewBeer(beerDto);
         HttpHeaders headers = new HttpHeaders();
         headers.add("location", "/api/v1/beer/" + saveDto.getId().toString());
