@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import brewery.springframework.mssc_brewery.domain.Beer;
 import brewery.springframework.mssc_brewery.web.model.BeerDto;
 
-@Mapper
+@Mapper(uses = { DateMapper.class })
 public interface BeerMapper {
     BeerDto beerToBeerDto(Beer beer);
 
