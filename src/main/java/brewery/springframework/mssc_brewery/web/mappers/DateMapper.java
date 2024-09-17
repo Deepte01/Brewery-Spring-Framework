@@ -3,6 +3,7 @@ package brewery.springframework.mssc_brewery.web.mappers;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
